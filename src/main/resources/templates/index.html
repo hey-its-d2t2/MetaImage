@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar, footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .container, .container2 {
+            flex: 1;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .upload-box {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .upload-box:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #clearButton {
+            background-color: #f44336;
+        }
+
+        #clearButton:hover {
+            background-color: #e53935;
+        }
+
+        .image-preview {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .metadata-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .metadata-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .metadata-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .metadata-field {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .sub-footer {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            color: #bbb;
+        }
+
+        @media (max-width: 600px) {
+            .metadata-field {
+                flex: 1 1 100%;
+            }
+
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">Image EXIF Data Analyzer</div>
+
+<div class="container">
+    <h1>🔍 Free Online Tool to Analyze Image EXIF Data Instantly</h1>
+    <p>⚡ Instant EXIF Analysis - Just Insert Your Image Below!</p>
+    <form th:action="@{/api/exif/view-metadata}" method="post" enctype="multipart/form-data" id="uploadForm">
+        <div class="upload-box">
+            <input type="file" name="file" accept=".jpeg, .jpg, .tiff, .png, .heic, .avif, .webp" required />
+        </div>
+        <button type="submit">Upload</button>
+        <button type="button" id="clearButton">Clear</button>
+    </form>
+
+    <!-- Image preview -->
+    <img id="imagePreview" class="image-preview" style="display:none;" alt="Uploaded Image Preview" />
+</div>
+
+<div class="container2">
+    <!-- Metadata display section -->
+    <div class="metadata-section">
+        <div class="metadata-title">Extracted Data</div>
+        <div id="metadata" class="metadata-box">
+            <!-- Metadata will be displayed here -->
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2024 Deepak Singh | Image EXIF Data Analyzer
+    <div class="sub-footer">
+        <p><strong>Project Description:</strong> A tool to analyze image EXIF data for metadata extraction.</p>
+        <p><strong>Libraries Used:</strong> Apache Commons APIs :: Commons Imaging: a Pure-Java Image Library, for extracting EXIF data.</p>
+        <p><strong>Tech Stack:</strong> Java, Spring Boot, Thymeleaf, HTML, CSS, JavaScript </p>
+        <p><strong>Source Code:</strong> <a href="https://github.com/hey-its-d2t2/MetaImage.git" target="_blank">View on GitHub</a></p>
+        <p><strong>Documentation:</strong>
+            <a href="https://commons.apache.org/proper/commons-imaging/" target="_blank">Apache Commons Imaging Documentation</a> |
+            <a href="https://github.com/apache/commons-imaging/blob/master/src/test/java/org/apache/commons/imaging/examples/MetadataExample.java" target="_blank">Metadata Example</a>
+        </p>
+        <p class="sub-footer-note">Contributions require request approval to maintain project integrity.</p>
+    </div>
+</footer>
+
+
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const fileInput = this.querySelector("input[type='file']");
+        const imagePreview = document.getElementById("imagePreview");
+        imagePreview.style.display = "none";
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+
+        try {
+            const response = await fetch(this.action, {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const metadata = await response.json();
+                const metadataContainer = document.getElementById("metadata");
+                metadataContainer.innerHTML = ""; // Clear previous data
+
+                // Remove duplicate entries
+                const uniqueMetadata = {};
+                for (const [key, value] of Object.entries(metadata.metadata)) {
+                    if (!uniqueMetadata[key]) {
+                        uniqueMetadata[key] = value;
+                    }
+                }
+
+                for (const [key, value] of Object.entries(uniqueMetadata)) {
+                    const fieldDiv = document.createElement("div");
+                    fieldDiv.classList.add("metadata-field");
+
+                    const keyElement = document.createElement("strong");
+                    keyElement.textContent = key + ": ";
+
+                    const valueElement = document.createElement("span");
+                    valueElement.textContent = value;
+
+                    fieldDiv.appendChild(keyElement);
+                    fieldDiv.appendChild(valueElement);
+                    metadataContainer.appendChild(fieldDiv);
+                }
+            } else {
+                console.error("Failed to fetch metadata:", response.status, response.statusText);
+                alert("Failed to upload image and retrieve metadata.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        }
+    });
+
+    document.getElementById("clearButton").addEventListener("click", function () {
+        document.getElementById("uploadForm").reset();
+        document.getElementById("metadata").innerHTML = "";
+        document.getElementById("imagePreview").style.display = "none";
+    });
+</script>
+
+</body>
+</html>
