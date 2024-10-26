@@ -8,9 +8,9 @@ import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.ImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
-import org.apache.commons.imaging.formats.tiff.TiffField;
+/*import org.apache.commons.imaging.formats.tiff.TiffField;
 import org.apache.commons.imaging.formats.tiff.TiffImageMetadata;
-import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
+import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;*/
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -47,6 +47,7 @@ public class ImageUtils {
         return response;
     }
 
+    /*
     public static ExifMetadataResponse extractExifMetadata_test(File imageFile) throws CustomException, IOException, ImageReadException {
         // Get all metadata stored in EXIF format (from JPEG or TIFF).
         final ImageMetadata metadata = Imaging.getMetadata(imageFile);
@@ -57,7 +58,7 @@ public class ImageUtils {
             final JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
 
             // Add common EXIF tags to the response
-          /*
+          *//*
             addTagToResponse(response, jpegMetadata, TiffTagConstants.TIFF_TAG_XRESOLUTION);
             addTagToResponse(response, jpegMetadata, TiffTagConstants.TIFF_TAG_DATE_TIME);
             addTagToResponse(response, jpegMetadata, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
@@ -67,7 +68,7 @@ public class ImageUtils {
             addTagToResponse(response, jpegMetadata, ExifTagConstants.EXIF_TAG_APERTURE_VALUE);
             addTagToResponse(response, jpegMetadata, ExifTagConstants.EXIF_TAG_BRIGHTNESS_VALUE);
 
-           */
+           *//*
 
             // Extract GPS information if available
             final TiffImageMetadata exifMetadata = jpegMetadata.getExif();
@@ -101,6 +102,8 @@ public class ImageUtils {
         }
     }
 
+
+    */
     //POC Code from :: https://github.com/apache/commons-imaging/blob/master/src/test/java/org/apache/commons/imaging/examples/MetadataExample.java
     /**
 
