@@ -17,7 +17,9 @@ public class ExifMetadataResponse {
     }
 
     public void addMetadata(String key, String value) {
-        this.metadata.put(key, value);
+        if (!metadata.containsKey(key)) {
+            this.metadata.put(key, value);
+        }
     }
 
     @Override
