@@ -100,11 +100,11 @@ Errors are returned in a standardized JSON format:
 Screenshots: The UI provides an intuitive display of the metadata in an easy-to-read format.
 
 - Home
-- 
-  ![EXIF-HOME](https://github.com/user-attachments/assets/f6921216-a4b0-4bf6-b73a-2fe7b8d2f001)\
+
+  ![EXIF-HOME](https://github.com/user-attachments/assets/f6921216-a4b0-4bf6-b73a-2fe7b8d2f001)
   
 - After Uploading Image
-- 
+
 ![FireShot Capture 039 - Upload Image - localhost](https://github.com/user-attachments/assets/d8e3db61-d4c5-438f-9f1b-48cf2a27e7a4)
 ![EXTRACTED](https://github.com/user-attachments/assets/40c0506f-0f59-40a1-986b-b1895cd42eea)
 
