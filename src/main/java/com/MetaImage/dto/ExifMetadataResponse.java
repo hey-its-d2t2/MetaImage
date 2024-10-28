@@ -21,11 +21,4 @@ public class ExifMetadataResponse {
             this.metadata.put(key, value);
         }
     }
-
-    @Override
-    public String toString() {
-        return "ExifMetadataResponse{" +
-                "metadata=" + metadata +
-                '}';
-    }
 }
