@@ -45,7 +45,8 @@ A Java Spring Boot application for extracting EXIF metadata from JPEG images usi
 ## 📑 Implementation Details
 This project uses Apache Commons Imaging to parse EXIF data from JPEG files, which allows us to dynamically access metadata fields and display them in key-value format. The library provides flexible methods for working with image metadata, making it ideal for this kind of application.
 
-- For more about Apache Commons Imaging, visit the official documentation. <a href ="https://commons.apache.org/proper/commons-imaging/gettingstarted.htm" target='_blank'/> Link 1  <a href = "https://github.com/apache/commons-imaging/blob/master/src/test/java/org/apache/commons/imaging/examples/MetadataExample.java" target = '_blank'> Link 2
+- For more about Apache Commons Imaging, visit the official documentation. <a href ="https://commons.apache.org/proper/commons-imaging/gettingstarted.htm" target='_blank'> Link 1 </a>
+<a href = "https://github.com/apache/commons-imaging/blob/master/src/test/java/org/apache/commons/imaging/examples/MetadataExample.java" target = '_blank'> Link 2 </a>
 
 ## 🛠 API Endpoints
 - Upload Image and Extract Metadata
@@ -99,9 +100,12 @@ Errors are returned in a standardized JSON format:
 Screenshots: The UI provides an intuitive display of the metadata in an easy-to-read format.
 
 - Home
-  ![EXIF-HOME](https://github.com/user-attachments/assets/f6921216-a4b0-4bf6-b73a-2fe7b8d2f001)
+- 
+  ![EXIF-HOME](https://github.com/user-attachments/assets/f6921216-a4b0-4bf6-b73a-2fe7b8d2f001)\
+  
 - After Uploading Image
-- ![FireShot Capture 039 - Upload Image - localhost](https://github.com/user-attachments/assets/d8e3db61-d4c5-438f-9f1b-48cf2a27e7a4)
+- 
+![FireShot Capture 039 - Upload Image - localhost](https://github.com/user-attachments/assets/d8e3db61-d4c5-438f-9f1b-48cf2a27e7a4)
 ![EXTRACTED](https://github.com/user-attachments/assets/40c0506f-0f59-40a1-986b-b1895cd42eea)
 
 
